@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: minecraft-web-server
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+    autoDeploy: true
+    branch: main
+    region: oregon
+    healthCheckPath: /
+
+  - type: web
+    name: minecraft-web-server-client
+    env: static
+    plan: free
+    buildCommand: npm install && npm run build
+    staticPublishPath: cliente/build
+    envVars:
+      - key: NODE_ENV
+        value: production
+    autoDeploy: true
+    branch: main
+    region: oregon
+    healthCheckPath: /
